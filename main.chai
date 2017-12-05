@@ -85,7 +85,7 @@ def update(dt) {
     time += dt
 
     // Animate the cat.
-    if (animCounter > 0.08f) {
+    if (animCounter > 0.065f) {
         animCounter = 0
         slideCounter = slideCounter + 1
         if (slideCounter > images.size()) {
@@ -94,7 +94,7 @@ def update(dt) {
     }
 
     // Animate the rainbow.
-    if (rainbowTimer > 0.2f) {
+    if (rainbowTimer > 0.35f) {
         rainbowTimer = 0.0f
         rainbowAlternate = !rainbowAlternate
     }
