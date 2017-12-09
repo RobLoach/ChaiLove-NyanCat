@@ -41,6 +41,8 @@ def load() {
     song = sound.newSoundData("nyan.wav")
     song.setLooping(true)
     song.play()
+
+    love.graphics.setDefaultFilter("nearest")
 }
 
 def addStar() {
@@ -56,7 +58,7 @@ def draw() {
         var animPoint = (counter - star[2]) * 10
         slide = animPoint
         if (slide < 12) {
-            graphics.draw(starImages[slide], star[0], star[1])
+            graphics.draw(starImages[slide], star[0], star[1], 0.0f, 7.0f)
         }
     }
 
