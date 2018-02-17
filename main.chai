@@ -21,24 +21,24 @@ def conf(t) {
 }
 
 def load() {
-    graphics.setBackgroundColor(15, 77, 143)
+    love.graphics.setBackgroundColor(15, 77, 143)
 
     // Load the images.
     for (var i = 1; i <= 12; ++i) {
-        images.push_back(graphics.newImage("cat/" + to_string(i) + ".png"))
-        starImages.push_back(graphics.newImage("star/star" + to_string(i) + ".png"))
+        images.push_back(love.graphics.newImage("cat/" + to_string(i) + ".png"))
+        starImages.push_back(love.graphics.newImage("star/star" + to_string(i) + ".png"))
     }
-    rainbow = graphics.newImage("rainbow.png")
+    rainbow = love.graphics.newImage("rainbow.png")
 
     // Set the cat location.
-    catX = graphics.getWidth() / 2 - images[0].getWidth() / 2
-    catY = graphics.getHeight() / 2 - images[0].getHeight() / 2
+    catX = love.graphics.getWidth() / 2 - images[0].getWidth() / 2
+    catY = love.graphics.getHeight() / 2 - images[0].getHeight() / 2
 
     // Find the default font.
-    activeFont = graphics.newFont()
+    activeFont = love.graphics.newFont()
 
     // Play the music.
-    song = sound.newSoundData("nyan.wav")
+    song = love.sound.newSoundData("nyan.wav")
     song.setLooping(true)
     song.play()
 
@@ -46,8 +46,8 @@ def load() {
 }
 
 def addStar() {
-    var x = math.random(0, graphics.getWidth())
-    var y = math.random(0, graphics.getHeight())
+    var x = love.math.random(0, love.graphics.getWidth())
+    var y = love.math.random(0, love.graphics.getHeight())
     stars.push_back([x, y, counter])
 }
 
@@ -58,7 +58,7 @@ def draw() {
         var animPoint = (counter - star[2]) * 10
         slide = animPoint
         if (slide < 12) {
-            graphics.draw(starImages[slide], star[0], star[1], 0.0f, 7.0f)
+            love.graphics.draw(starImages[slide], star[0], star[1], 0.0f, 7.0f)
         }
     }
 
@@ -66,17 +66,13 @@ def draw() {
     drawRainbow()
 
     // Draw the cat.
-    graphics.draw(images[slideCounter - 1], catX, catY)
+    love.graphics.draw(images[slideCounter - 1], catX, catY)
 
     // Text at the bottom.
-    var text = "YOU'VE NYANED FOR"
-    graphics.print(text, graphics.getWidth() / 2 - activeFont.getWidth(text), graphics.getHeight() - activeFont.getHeight(text) * 6)
-    text = to_string(time)
-    graphics.print(text, graphics.getWidth() / 2 - activeFont.getWidth(text), graphics.getHeight() - activeFont.getHeight(text) * 4)
-
-    text = "SECONDS"
-    graphics.print(text, graphics.getWidth() / 2 - activeFont.getWidth(text), graphics.getHeight() - activeFont.getHeight(text) * 2)
-
+    var scoreInt = 2 // Port the time to an integer.
+    scoreInt = time
+    var text = "YOU'VE NYANED FOR " + to_string(scoreInt) + " SECONDS"
+    love.graphics.print(text, love.graphics.getWidth() / 2 - activeFont.getWidth(text) / 2, love.graphics.getHeight() - activeFont.getHeight(text) * 4)
 }
 
 def update(dt) {
@@ -109,22 +105,22 @@ def update(dt) {
     // See if we are to add a new star.
     newStarCounter = newStarCounter - dt
     if (newStarCounter <= 0) {
-        newStarCounter = math.random(0.01f, 0.05f)
+        newStarCounter = love.math.random(0.01f, 0.05f)
         addStar()
     }
 
     // Move the cat?
     var catSpeed = 30.0f
-    if (joystick.isDown(0, "up")) {
+    if (love.joystick.isDown(0, "up")) {
         catY = catY - dt * catSpeed
     }
-    if (joystick.isDown(0, "down")) {
+    if (love.joystick.isDown(0, "down")) {
         catY = catY + dt * catSpeed
     }
-    if (joystick.isDown(0, "left")) {
+    if (love.joystick.isDown(0, "left")) {
         catX = catX - dt * catSpeed
     }
-    if (joystick.isDown(0, "right")) {
+    if (love.joystick.isDown(0, "right")) {
         catX = catX + dt * catSpeed
     }
 }
@@ -159,7 +155,7 @@ def drawRainbow() {
         if (rainbowOffset > 11) {
             rainbowOffset = 0
         }
-        graphics.draw(rainbow, i, rainbowDrawY + rain)
+        love.graphics.draw(rainbow, i, rainbowDrawY + rain)
         i = i + rainbow.getWidth()
     }
 }
