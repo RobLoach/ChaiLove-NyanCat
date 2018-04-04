@@ -12,13 +12,13 @@ global rainbowTimer = 0.0f
 global rainbowAlternate = true
 global newStarCounter = 0.0f
 global counter = 0.0f
-global stars = []
+global stars = List()
 global starImages = []
 
 def conf(t) {
     t.window.width = 1000
     t.window.height = 563
-    t.version = "0.17.0"
+    t.version = "0.18.0"
 }
 
 def load() {
@@ -54,6 +54,7 @@ def addStar() {
 
 def draw() {
     // Draw all the Stars
+    var removeStar = 0
     for (star : stars) {
         var slide = 2
         var animPoint = (counter - star[2]) * 10
@@ -61,6 +62,13 @@ def draw() {
         if (slide < 12) {
             love.graphics.draw(starImages[slide], star[0], star[1], 0.0f, 7.0f)
         }
+        else {
+            removeStar = removeStar + 1
+        }
+    }
+    while (removeStar > 0) {
+        stars.pop_front()
+        removeStar = removeStar - 1
     }
 
     // Display the Rainbow
