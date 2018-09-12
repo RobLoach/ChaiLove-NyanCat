@@ -18,7 +18,7 @@ global starImages = []
 def conf(t) {
     t.window.width = 1000
     t.window.height = 563
-    t.version = "0.18.0"
+    t.version = "0.25.1"
 }
 
 def load() {
