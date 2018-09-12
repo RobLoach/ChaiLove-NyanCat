@@ -39,7 +39,7 @@ def load() {
     activeFont = love.graphics.newFont()
 
     // Play the music.
-    song = love.sound.newSoundData("nyan.wav")
+    song = love.sound.newSoundData("nyan.ogg")
     song.setLooping(true)
     song.play()
 
@@ -119,7 +119,7 @@ def update(dt) {
     }
 
     // Move the cat?
-    var catSpeed = 30.0f
+    var catSpeed = 40.0f
     if (love.joystick.isDown(0, "up")) {
         catY = catY - dt * catSpeed
     }
