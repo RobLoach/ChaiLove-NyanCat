@@ -45,6 +45,9 @@ def load() {
     song.setLooping(true)
     song.play()
 
+    // Toggle to show/hide text.
+    global showText = true
+
     love.graphics.setDefaultFilter("nearest")
 }
 
@@ -83,10 +86,12 @@ def draw() {
     love.graphics.draw(images[slideCounter - 1], catX, catY)
 
     // Text at the bottom.
-    var scoreInt = 2 // Port the time to an integer.
-    scoreInt = time
-    var text = "YOU'VE NYANED FOR " + to_string(scoreInt) + " SECONDS"
-    love.graphics.print(text, love.graphics.getWidth() / 2 - activeFont.getWidth(text) / 2, love.graphics.getHeight() - activeFont.getHeight(text) * 4)
+    if (showText) {
+        var scoreInt = 2 // Port the time to an integer.
+        scoreInt = time
+        var text = "YOU'VE NYANED FOR " + to_string(scoreInt) + " SECONDS"
+        love.graphics.print(text, love.graphics.getWidth() / 2 - activeFont.getWidth(text) / 2, love.graphics.getHeight() - activeFont.getHeight(text) * 4)
+    }
 }
 
 /**
@@ -139,6 +144,12 @@ def update(dt) {
     }
     if (love.joystick.isDown(0, "right")) {
         catX = catX + dt * catSpeed
+    }
+}
+
+def joystickpressed(joystick, button) {
+    if (button == "start") {
+        showText = !showText
     }
 }
 
