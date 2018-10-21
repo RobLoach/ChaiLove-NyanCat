@@ -1,12 +1,6 @@
-global images = []
 global animCounter = 0.0f
 global slideCounter = 1
 global time = 0.0f
-global catX = 100.0f
-global catY = 100.0f
-global activeFont
-global song
-global rainbow
 global rainbowOffset = 0
 global rainbowTimer = 0.0f
 global rainbowAlternate = true
@@ -15,32 +9,39 @@ global counter = 0.0f
 global stars = List()
 global starImages = []
 
+/**
+ * ChaiLove Callback; Configure the game.
+ */
 def conf(t) {
-    t.window.width = 1000
-    t.window.height = 563
+    t.window.width = 640
+    t.window.height = 480
     t.console = true
-    t.version = "0.25.1"
+    t.version = "0.29.0"
 }
 
+/**
+ * ChaiLove Callback; Load the game.
+ */
 def load() {
     love.graphics.setBackgroundColor(15, 77, 143)
 
     // Load the images.
+    global images = []
     for (var i = 1; i <= 12; ++i) {
         images.push_back(love.graphics.newImage("cat/" + to_string(i) + ".png"))
         starImages.push_back(love.graphics.newImage("star/star" + to_string(i) + ".png"))
     }
-    rainbow = love.graphics.newImage("rainbow.png")
+    global rainbow = love.graphics.newImage("rainbow.png")
 
     // Set the cat location.
-    catX = love.graphics.getWidth() / 2 - images[0].getWidth() / 2
-    catY = love.graphics.getHeight() / 2 - images[0].getHeight() / 2
+    global catX = love.graphics.getWidth() / 2.0f - images[0].getWidth() / 2.0f
+    global catY = love.graphics.getHeight() / 2.0f - images[0].getHeight() / 2.0f
 
     // Find the default font.
-    activeFont = love.graphics.newFont()
+    global activeFont = love.graphics.newFont()
 
     // Play the music.
-    song = love.sound.newSoundData("nyan.ogg")
+    global song = love.sound.newSoundData("nyan.ogg")
     song.setLooping(true)
     song.play()
 
@@ -53,6 +54,9 @@ def addStar() {
     stars.push_back([x, y, counter])
 }
 
+/**
+ * ChaiLove Callback; Render the game.
+ */
 def draw() {
     // Draw all the Stars
     var removeStar = 0
@@ -85,6 +89,9 @@ def draw() {
     love.graphics.print(text, love.graphics.getWidth() / 2 - activeFont.getWidth(text) / 2, love.graphics.getHeight() - activeFont.getHeight(text) * 4)
 }
 
+/**
+ * ChaiLove Callback; Update the game state.
+ */
 def update(dt) {
     // Update all the counters.
     animCounter += dt
