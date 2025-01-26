@@ -1,0 +1,9 @@
+/**
+ * ChaiLove Callback; Configure the game.
+ */
+def conf(t) {
+    t.window.width = 640
+    t.window.height = 480
+    t.console = true
+    t.version = "0.29.0"
+}
