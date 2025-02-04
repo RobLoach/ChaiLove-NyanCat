@@ -9,3 +9,7 @@
 ```
 retroarch -L chailove_libretro.so /path/ChaiLove-NyanCat/main.chai
 ```
+
+## License
+
+[GPL](LICENSE)
